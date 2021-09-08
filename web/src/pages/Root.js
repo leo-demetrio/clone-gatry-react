@@ -12,7 +12,7 @@ const Root = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/" component={PagesPromotionSearch} />
+                <Route path="/" exact={true} component={PagesPromotionSearch} />
                 <Route path="/create" component={PagesPromotionForm} />
             </Switch>
         </Router>
