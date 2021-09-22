@@ -4,6 +4,8 @@ import useApi from "components/utils/useApi";
 import PromotionsModalCommentsTree from "./CommentsTree/CommentsTree";
 import './Modal.css';
 
+
+
 const PromotionModal = ({ promotionId, onClickClose }) => {
     const [comment,setComment] = useState('');
     const [load, loadInfo] = useApi({
@@ -20,10 +22,10 @@ const PromotionModal = ({ promotionId, onClickClose }) => {
     useEffect(() => {
         load();
     }, []);
-    function onSubmit(ev) {
+    async function onSubmit(ev) {
         ev.preventDefault();
         try{
-            sendComment({
+            await sendComment({
                 data: {
                     userId: 1,
                     promotionId,
@@ -31,10 +33,21 @@ const PromotionModal = ({ promotionId, onClickClose }) => {
                 }
             });
             setComment('');
-            load();
+            load({ quietly: true});
         }catch(e) {
 
         }
+    }
+    async function sendAnswer(commentAnswer,parentId){
+        await sendComment({
+            data: {
+                userId: 1,
+                promotionId,
+                comment: commentAnswer,
+                parentId
+            }
+        });
+        load({ quietly: true});
     }
     
     return (
@@ -50,6 +63,7 @@ const PromotionModal = ({ promotionId, onClickClose }) => {
                     placeholder="Comentar..."
                     onChange={ev => setComment(ev.target.value)}                    
                     value={comment}
+                    disabled={sendCommentInfo.loading}
                 ></textarea>
                    <button 
                         type="submit"
@@ -61,6 +75,7 @@ const PromotionModal = ({ promotionId, onClickClose }) => {
 
                 <PromotionsModalCommentsTree
                     comments={loadInfo.data}
+                    sendComment={sendAnswer}
                 />
         </UIModal>
     );

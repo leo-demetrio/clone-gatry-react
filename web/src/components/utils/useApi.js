@@ -13,15 +13,18 @@ export default function useApi(config) {
     const deBounceAxios = useDeboucedPromise(axios,config.deBounceDelay);
     
         async function call(localConfig) {
-            setRequestInfo({
-                ...initialRequestInfo,
-                loading: true
-            });
+            
             let response = null;
             const finalConfig = {
                 baseURL: 'http://localhost:5000',
                 ...config,
                 ...localConfig
+            }
+            if(!finalConfig.quietly){
+                setRequestInfo({
+                    ...initialRequestInfo,
+                    loading: true
+                });
             }
             const fn = finalConfig.debounced ? deBounceAxios : axios;
             try{        
