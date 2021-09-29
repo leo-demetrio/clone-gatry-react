@@ -8,7 +8,7 @@ const PromotionList = ({ promotions, loading, error }) => {
     if (error) {
         return <div>Algo deu errado...</div>
     }
-    if(loading || promotions === null) {
+    if(promotions === null) {
         return <div>Carregando...</div>
     }
 
@@ -25,6 +25,7 @@ const PromotionList = ({ promotions, loading, error }) => {
                         onClickComments={() => setPromotionId(promotion.id)} 
                     />
             ))}
+            {loading && <div>Caregando mais promoções...</div>}
             {promotionId && (
                 <PromotionModal 
                     promotionId={promotionId} 
