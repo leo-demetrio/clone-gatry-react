@@ -115,6 +115,59 @@
       "promotionId": 2,
       "comment": "test",
       "id": 11
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "comment": "New comment\n",
+      "id": 12
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "comment": "New comment 2",
+      "id": 13
+    },
+    {
+      "userId": 1,
+      "promotionId": 5,
+      "comment": "New comments",
+      "id": 14
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "commentAnswer": "Teste resposta",
+      "parentId": 13,
+      "id": 15
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "comment": "New test",
+      "parentId": 13,
+      "id": 16
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "comment": "new test",
+      "parentId": 15,
+      "id": 17
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "comment": "new test",
+      "parentId": 17,
+      "id": 18
+    },
+    {
+      "userId": 1,
+      "promotionId": 6,
+      "comment": "test",
+      "parentId": 12,
+      "id": 19
     }
   ],
   "users": [
