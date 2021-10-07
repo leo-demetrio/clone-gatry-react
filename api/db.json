@@ -39,8 +39,15 @@
       "title": "Bravo Café Contralto Torrado e Moído 250g",
       "url": "https://amzn.to/3l8mQoO",
       "imageUrl": "https://cdn.gatry.com/gatry-static/promocao/imagem/33b888976dbdfc33e7436f086476b6d6.jpg",
-      "price": "12",
+      "price": 13,
       "id": 6
+    },
+    {
+      "title": "Monitor Full HD Samsung T350 LF24T350FHLMZD - 24” IPS LED HDMI VGA FreeSync",
+      "url": "https://www.magazinevoce.com.br/magazinegatry/monitor-full-hd-samsung-t350-lf24t350fhlmzd-24-ips-led-hdmi-vga-freesync/p/232118400/",
+      "imageUrl": "https://cdn.gatry.com/gatry-static/promocao/imagem/3baa5cf02ffc81971d810472ed6257dc.jpg",
+      "price": 800,
+      "id": 7
     }
   ],
   "comments": [
