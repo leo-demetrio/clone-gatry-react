@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import './Form.css';
 import useApi from "components/utils/useApi";
+import Field from 'components/Form/Field/Field';
+import { Formik, Form } from "formik";
+import schema from './schema';
 
 const initialValue = {
     title: '',
@@ -11,14 +14,14 @@ const initialValue = {
 }
 
 const PromotionForm = ({ id }) => {
-    const [values, setValues] = useState(id ? null: initialValue);
+    // const [values, setValues] = useState(id ? null: initialValue);
     const history = useHistory();
-    const [load] = useApi({
+    const [load, loadInfo] = useApi({
         url: `/promotions/${id}`,
         method: 'get',
-        onCompleted: (res) => {
-            setValues(res.data);
-        }
+        // onCompleted: (res) => {
+        //     setValues(res.data);
+        // }
     });
     const [save,saveInfo] = useApi({
         url: id
@@ -40,17 +43,13 @@ const PromotionForm = ({ id }) => {
         //eslint-disable-next-line react-hooks/exhaustive-deps
     },[id]);
     
-
-    function onChange(ev) {
-        const { name, value } = ev.target;
-        setValues({ ...values, [name]: value });
-    }
-    function onSubmit(ev){        
-        ev.preventDefault();
+    function onSubmit(formValues){        
         save({
-            data: values
+            data: formValues
         });
     }
+
+    const values = id ? loadInfo.data : initialValue;
 
 
     return (
@@ -58,29 +57,31 @@ const PromotionForm = ({ id }) => {
             <h1>Promo show</h1>
             <h2>Nova Promoção</h2>
             {!values ? (<div>Carregando...</div>): (
-
-            <form  onSubmit={onSubmit}>
-                {saveInfo.loading && <span>Salvando dados...</span>}
-                <div className="promotion-form__group">
-                    <label htmlFor="title">Título</label>
-                    <input id="title" value={values.title} type="text" name="title" onChange={onChange} />
-                </div>
-                <div className="promotion-form__group">
-                    <label htmlFor="url">Url</label>
-                    <input id="url" value={values.url} type="text" name="url" onChange={onChange} />
-                </div>
-                <div className="promotion-form__group">
-                    <label htmlFor="imageUrl">Imagem (Url)</label>
-                    <input id="imageUrl" value={values.imageUrl} type="text" name="imageUrl" onChange={onChange} />
-                </div>
-                <div className="promotion-form__group">
-                    <label htmlFor="price">Preço</label>
-                    <input id="price" value={values.price} type="number" name="price" onChange={onChange}  />
-                </div>
-                <div>
-                    <button>Salvar</button>
-                </div>
-            </form>
+            
+            <Formik 
+                initialValues={values}
+                validationSchema={schema}
+                onSubmit={onSubmit}
+                render={() => (
+                <Form>
+                    {saveInfo.loading && <span>Salvando dados...</span>}
+                    <div className="promotion-form__group">
+                        <Field type="text" name="title" label="Título" />
+                    </div>
+                    <div className="promotion-form__group">
+                        <Field type="text" name="url" label="Url" />
+                    </div>
+                    <div className="promotion-form__group">
+                        <Field type="text" name="imageUrl" label="Imagem (Url)" />
+                    </div>
+                    <div className="promotion-form__group">
+                        <Field type="number" name="price" label="Preço" />
+                    </div>
+                    <div>
+                        <button>Salvar</button>
+                    </div>
+                </Form>
+                )} />
             )}
         </div>
     )
